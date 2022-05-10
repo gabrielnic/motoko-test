@@ -1,0 +1,7 @@
+type Test = 
+ service {
+   appendCanisters: () -> ();
+   burn: () -> ();
+   test: () -> ();
+ };
+service : () -> Test

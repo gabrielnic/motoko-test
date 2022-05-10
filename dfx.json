@@ -2,9 +2,9 @@
   "version": 1,
   "dfx": "0.9.3",
   "canisters": {
-    "actor_reference": {
+    "test": {
       "type": "motoko",
-      "main": "src/actor_reference/main.mo"
+      "main": "src/test/Main.mo"
     }
   },
   "defaults": {

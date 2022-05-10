@@ -1,12 +1,15 @@
 import Nat "mo:base/Nat";
+import Array "mo:base/Array";
 import Text "mo:base/Text";
 import Time "mo:base/Time";
 import TrieMap "mo:base/TrieMap";
 import Cycles "mo:base/ExperimentalCycles";
 import Debug "mo:base/Debug";
+import C1 "./C1";
+import C2 "./C2";
 
 
-actor {
+shared ({caller = owner}) actor class Test() = this {
 
   public type EntityT = {
     created: Time.Time;
@@ -44,8 +47,59 @@ actor {
 
   let data = TrieMap.TrieMap<Text, IconTest>(Text.equal, Text.hash);
 
+  type CanisterState = {
+    canister : actor {};
+    name : Text;
+  };
+
+  type CanisterData = {
+    name: Text;
+    balance: Nat;
+  };
+
+  private stable var canisters : [var ?CanisterState] = Array.init(2, null);
+
+  public func appendCanisters() : async () {
+    var c1 : CanisterState = {
+      canister = await C1.C1();
+      name = "C1";
+    };
+    var c2 : CanisterState = {
+      canister = await C2.C2();
+      name = "C2";
+    };
+    canisters[0] := ?c1;
+    canisters[1] := ?c2;
+  };
+
    public func test() : async () {
    
+  };
+
+  func getCanister(name : Text): async ?CanisterState {
+    let cs: ?(?CanisterState) =  Array.find<?CanisterState>(Array.freeze(canisters), 
+        func(cs: ?CanisterState) : Bool {
+          switch (cs) {
+            case null { false };
+            case (?cs) {
+             if (cs.name == name) {
+               return true;
+             };
+
+             return false;
+            };
+          };
+    });
+    return do ? { 
+        let c = cs!;
+        let nb: ?CanisterState = switch (c) {
+          case (?c) { ?(c) };
+          case _ { null };
+        };
+
+        nb!;
+    };
+
   };
 
   public func burn() : async () {
