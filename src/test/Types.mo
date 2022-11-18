@@ -12,15 +12,27 @@ module {
   public type ID = Text;
   // equal
   public func idEqual(x : ID, y : ID) : Bool { x == y };
-  public func idHash(x : Nat) : Hash.Hash { Hash.hash(x) };
-
-  // // toText
-  // public func toText(x : ULID) : Text {
-  //   Nat.toText(x);
-  // };
 
 
   public type Timestamp = Int; // See mo:base/Time and Time.now()
+
+  
+ // Value
+ public type Value = {
+    #blob : Blob;
+    #bool : Bool;
+    #float : Float;
+    #int : Int;
+    #nat : Nat;
+    #text : Text;
+    #array : [Value];
+  };
+
+  public type Icon = {
+    id: Nat;
+    name: Text;
+    description: Text;
+  }
 
 
 

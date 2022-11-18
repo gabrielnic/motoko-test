@@ -1,21 +1,17 @@
 {
   "version": 1,
-  "dfx": "0.9.3",
+  "dfx": "0.12.1",
   "canisters": {
     "test": {
-      "type": "motoko",
-      "main": "src/test/Main.mo"
+      "type": "custom",
+      "build": "sh -c './compress.sh'",
+      "candid": "src/declarations/test/test.did",
+      "wasm": "src/declarations/test/test.wasm.gz"
     }
   },
   "defaults": {
     "build": {
       "packtool": ""
-    }
-  },
-  "networks": {
-    "local": {
-      "bind": "127.0.0.1:8000",
-      "type": "ephemeral"
     }
   }
 }

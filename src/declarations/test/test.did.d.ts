@@ -7,8 +7,8 @@ export interface Test {
   'burn' : ActorMethod<[], undefined>,
   'createIcon' : ActorMethod<[Icon], undefined>,
   'createIconMultiple' : ActorMethod<[Array<Icon>], undefined>,
+  'createIconMultipleOrNone' : ActorMethod<[[] | [Array<Icon>]], undefined>,
   'generateRandomNumber' : ActorMethod<[], bigint>,
   'test' : ActorMethod<[], undefined>,
-  'testTime' : ActorMethod<[], undefined>,
 }
 export interface _SERVICE extends Test {}
