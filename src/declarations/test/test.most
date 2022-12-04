@@ -1,5 +1,0 @@
-// Version: 1.0.0
-type CanisterState = {canister : actor {}; name : Text};
-actor {
-  stable var canisters : [var ?CanisterState]
-};

@@ -81,12 +81,19 @@ shared ({caller = owner}) actor class Test() = this {
       canister = await C1.C1();
       name = "C1";
     };
+
+    var c12 : CanisterState = {
+      canister = await C1.C1();
+      name = "C12";
+    };
     var c2 : CanisterState = {
       canister = await C2.C2();
       name = "C2";
     };
+    
     canisters[0] := ?c1;
     canisters[1] := ?c2;
+    canisters[2] := ?c12;
   };
 
    public func test() : async () {
